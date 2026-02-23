@@ -64,38 +64,23 @@ ssh ${LONGLEAF_USER}@longleaf.unc.edu << EOF
     # Fix 'set amber' to exactly 'set amber = pmemd.cuda# set amber = "mpirun -np 4 pmemd.MPI"'
     sed -i 's|^set amber =.*|set amber = pmemd.cuda# set amber = "mpirun -np 4 pmemd.MPI"|g' run-cmd.csh
 
-    echo "  -> Creating sub-cmd.slum..."
-    cat << 'SLURM' > sub-cmd.slum
-#!/bin/bash
-
-#SBATCH --job-name=cMD-${PDB_ID}
-#SBATCH --ntasks=1
-#SBATCH --cpus-per-task=1
-#SBATCH --mem=16G
-#SBATCH --time=24:00:00
-#SBATCH --partition=l40-gpu
-#SBATCH --output=log.%x.%j
-#SBATCH --gres=gpu:1
-#SBATCH --qos=gpu_access
-#SBATCH --constraint=rhel8
-
-module load gcc/11.2.0 cuda/11.8
-
-source /proj/ymiaolab/software/amber24/amber.sh
-
-module purge
-module load amber/24p3
-
-which pmemd.cuda
-
-chmod +x run-cmd.csh
-
-./run-cmd.csh
-SLURM
-
-    echo "Done for ${PDB_ID}! Configuration files ready."
-    echo "To submit, SSH into Longleaf, cd to ${REMOTE_TARGET}/${CG_FOLDER_NAME}/amber, and run 'sbatch sub-cmd.slum'"
+    echo "Done patching run-cmd.csh!"
 EOF
 
 echo ""
-echo "✅ Finished! Run this script for the next systems as they finish."
+echo "=========================================="
+echo "Step 3: Downloading amber.pdb to local Mac..."
+echo "=========================================="
+
+# Download the cleaned amber.pdb back to the local system directory
+scp ${LONGLEAF_USER}@longleaf.unc.edu:${REMOTE_TARGET}/${CG_FOLDER_NAME}/amber/amber.pdb "${SYSTEM_DIR}/amber_${PDB_ID}.pdb"
+
+echo ""
+echo "✅ Finished setup for ${PDB_ID}!"
+echo "---------------------------------------------------------"
+echo "NEXT CRITICAL STEP:"
+echo "1. Open PyMOL and load: new_systems/${PDB_ID}/amber_${PDB_ID}.pdb"
+echo "2. Find the polar contacts and record atom_p and atom_l."
+echo "3. Then SSH into Longleaf, create your sub-cmd.slum and md.in,"
+echo "   and submit your equilibration/production runs!"
+echo "---------------------------------------------------------"
