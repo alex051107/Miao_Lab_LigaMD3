@@ -104,6 +104,11 @@ PyMOL> save complex.pdb, all
 * **原因**：原始晶体的非对称单元本来就包含了多个多聚体。
 * **解决**：必须在 PyMOL 中明确提取一对单链（如 `select chain A and ...`），将其他无用的多聚链彻底删除后再导出。
 
+**坑四：Error: Unsupported lipid type (XXX)**
+* **症状**：上传 PDB 后直接报红字 `Error: Unsupported lipid type (比如 BSM)`。
+* **原因**：配体的三字母缩写（残基名）与 CHARMM-GUI 内置的某种脂质分子重名了！（比如 `2BSM` 体系的配体名恰好就是 `BSM`，而 CHARMM-GUI 里 `BSM` 代表脑鞘磷脂 Brain Sphingomyelin）。系统错误地把你想要做小分子参数化的配体当成了它不支持自动生成的某种脂质。
+* **解决**：打开你的 `complex.pdb` 和 `ligand.mol2`，用文本编辑器把里面配体的残基名字（比如 `BSM`）全部替换成一个不冲突的名字，比如 `LIG`，然后再重新上传。
+
 ---
 
 ## 第二步：CHARMM-GUI 建模（含具体参数）

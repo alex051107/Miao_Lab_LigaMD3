@@ -1,0 +1,1 @@
+cd /home/charmm-gui/www/../data/www/7187586401/amber/ligand/ykj; OMP_NUM_THREADS=1 /home/charmm-gui/local//miniforge3/bin/antechamber -i YKJ.pdb -fi pdb -o YKJ.ac -fo ac -at gaff2 -c bcc -nc 0 -s 2 -pf y
