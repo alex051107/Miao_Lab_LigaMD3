@@ -1,0 +1,27 @@
+#!/bin/bash
+
+#SBATCH --job-name=5J20-e2.5        # <- 若优化不同的 sigma 则修改此处的 2.5
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=32G
+#SBATCH --time=96:00:00
+#SBATCH --partition=l40-gpu
+#SBATCH --output=log.%x.%j
+#SBATCH --gres=gpu:1
+#SBATCH --qos=gpu_access
+
+workfolder=$(pwd)
+
+module purge
+module load gcc/11.2.0 cuda/11.8
+
+source /proj/ymiaolab/software/amber24/amber.sh
+
+module purge
+module load amber/24p3
+
+cd "$workfolder"
+
+which pmemd.cuda
+
+pmemd.cuda -O -i md.in -p step3_input.parm7 -c step5_10.rst7 -o md-1.out -x md-1.nc -r gamd-1.rst -gamd gamd-1.log

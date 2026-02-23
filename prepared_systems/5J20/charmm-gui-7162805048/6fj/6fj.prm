@@ -1,0 +1,190 @@
+* Force Field Parameter File.
+* 
+
+ATOMS
+MASS    -1 _CAXA  12.010000
+MASS    -1 _CCXA  12.010000
+MASS    -1 _NDXA  14.010000
+MASS    -1 _NXA   14.010000
+MASS    -1 _OHXA  16.000000
+MASS    -1 _NSXA  14.010000
+MASS    -1 _CXA   12.010000
+MASS    -1 _OXA   16.000000
+MASS    -1 _C3XA  12.010000
+MASS    -1 _OSXA  16.000000
+MASS    -1 _CDXA  12.010000
+MASS    -1 _FXA   19.000000
+MASS    -1 _HAXA   1.008000
+MASS    -1 _HOXA   1.008000
+MASS    -1 _HNXA   1.008000
+MASS    -1 _H1XA   1.008000
+MASS    -1 _H4XA   1.008000
+
+BONDS
+_CAXA _CAXA  378.60   1.398
+_CAXA _HAXA  395.70   1.086
+_CAXA _OHXA  365.60   1.364
+_CAXA _CCXA  308.20   1.456
+_CXA _CAXA  272.70   1.491
+_CCXA _NDXA  450.70   1.317
+_CCXA _NXA  353.80   1.381
+_NDXA _NSXA  295.90   1.360
+_CXA _NXA  356.20   1.379
+_CAXA _NXA  315.20   1.412
+_HOXA _OHXA  563.50   0.973
+_CXA _NSXA  356.20   1.379
+_HNXA _NSXA  527.30   1.013
+_CXA _OXA  652.60   1.218
+_CAXA _FXA  353.60   1.349
+_C3XA _NXA  263.80   1.462
+_C3XA _CCXA  262.60   1.502
+_C3XA _H1XA  375.90   1.097
+_CCXA _OSXA  367.90   1.362
+_CCXA _CDXA  416.10   1.373
+_CCXA _H4XA  403.90   1.082
+_CDXA _CDXA  340.20   1.428
+_CDXA _HAXA  400.10   1.084
+
+ANGLES
+_CAXA _CAXA _NXA   85.600     120.190
+_CAXA _CAXA _CAXA   68.800     120.020
+_CAXA _CAXA _HAXA   48.700     119.880
+_CAXA _CAXA _CXA   66.400     120.330
+_CAXA _OHXA _HOXA   50.700     108.580
+_CAXA _CAXA _OHXA   87.200     119.900
+_CAXA _CAXA _CCXA   67.100     120.790
+_CAXA _CCXA _NDXA   85.300     123.240
+_CAXA _CCXA _NXA   85.600     117.670
+_CAXA _CXA _NXA   85.400     115.250
+_CAXA _CXA _OXA   86.200     122.600
+_CCXA _NDXA _NSXA   88.100     117.190
+_CCXA _NXA _CXA   66.600     123.270
+_CCXA _NXA _CAXA   68.400     114.010
+_NDXA _CCXA _NXA  110.300     123.000
+_NDXA _NSXA _CXA   83.500     124.860
+_NDXA _NSXA _HNXA   62.300     115.420
+_NXA _CXA _NSXA  112.400     113.560
+_NXA _CXA _OXA  113.800     123.050
+_NSXA _CXA _OXA  113.800     123.050
+_CXA _NXA _CAXA   65.700     123.710
+_CXA _NSXA _HNXA   48.700     117.550
+_CAXA _CAXA _FXA   89.300     118.960
+_CXA _NXA _C3XA   65.300     120.690
+_NXA _C3XA _CCXA   84.200     111.760
+_NXA _C3XA _H1XA   61.500     108.880
+_C3XA _NXA _C3XA   64.900     115.640
+_C3XA _CCXA _OSXA   84.900     116.800
+_C3XA _CCXA _CDXA   66.800     119.450
+_CCXA _C3XA _H1XA   47.900     109.640
+_CCXA _OSXA _CCXA   71.500     106.720
+_CCXA _CDXA _CDXA   70.300     114.190
+_CCXA _CDXA _HAXA   49.000     121.760
+_OSXA _CCXA _CDXA   88.000     120.300
+_OSXA _CCXA _H4XA   63.600     114.900
+_CDXA _CCXA _H4XA   47.800     128.480
+_CDXA _CDXA _HAXA   47.600     121.070
+_H1XA _C3XA _H1XA   38.800     108.460
+
+DIHEDRALS
+_CAXA _CAXA _CAXA _NXA      3.625         2     180.0
+_HAXA _CAXA _CAXA _NXA      3.625         2     180.0
+_CAXA _CAXA _CAXA _CAXA     3.625         2     180.0
+_CAXA _CAXA _CAXA _HAXA     3.625         2     180.0
+_HAXA _CAXA _CAXA _HAXA     3.625         2     180.0
+_CAXA _CAXA _CAXA _OHXA     3.625         2     180.0
+_HAXA _CAXA _CAXA _OHXA     3.625         2     180.0
+_CXA  _CAXA _CAXA _CAXA     3.625         2     180.0
+_CXA  _CAXA _CAXA _OHXA     3.625         2     180.0
+_CAXA _CAXA _OHXA _HOXA     0.835         2     180.0
+_CAXA _CAXA _CAXA _CCXA     3.625         2     180.0
+_CCXA _CAXA _CAXA _OHXA     3.625         2     180.0
+_CCXA _CAXA _CAXA _HAXA     3.625         2     180.0
+_CAXA _CAXA _CCXA _NDXA     0.700         2     180.0
+_CAXA _CAXA _CCXA _NXA      0.700         2     180.0
+_CXA  _CAXA _CAXA _HAXA     3.625         2     180.0
+_NXA  _CXA  _CAXA _CAXA     1.000         2     180.0
+_OXA  _CXA  _CAXA _CAXA     0.522         2     180.0
+_CAXA _CCXA _NDXA _NSXA     4.750         2     180.0
+_NXA  _CCXA _NDXA _NSXA     4.750         2     180.0
+_CAXA _CCXA _NXA  _CXA      1.650         2     180.0
+_NDXA _CCXA _NXA  _CXA      1.650         2     180.0
+_CAXA _CCXA _NXA  _CAXA     1.650         2     180.0
+_NDXA _CCXA _NXA  _CAXA     1.650         2     180.0
+_CCXA _NDXA _NSXA _CXA      4.800         2     180.0
+_CCXA _NDXA _NSXA _HNXA     4.800         2     180.0
+_NSXA _CXA  _NXA  _CCXA     2.500         2     180.0
+_NSXA _CXA  _NXA  _CAXA     2.500         2     180.0
+_OXA  _CXA  _NXA  _CCXA     2.500         2     180.0
+_OXA  _CXA  _NXA  _CAXA     2.500         2     180.0
+_CAXA _CAXA _NXA  _CCXA     0.450         2     180.0
+_CAXA _CAXA _NXA  _CXA      0.950         2     180.0
+_NXA  _CXA  _NSXA _NDXA     2.500         2     180.0
+_NXA  _CXA  _NSXA _HNXA     2.500         2     180.0
+_OXA  _CXA  _NSXA _NDXA     2.500         2     180.0
+_OXA  _CXA  _NSXA _HNXA     2.500         2     180.0
+_OXA  _CXA  _NSXA _HNXA     2.000         1       0.0
+_CAXA _CAXA _CAXA _FXA      3.625         2     180.0
+_FXA  _CAXA _CAXA _NXA      3.625         2     180.0
+_FXA  _CAXA _CAXA _HAXA     3.625         2     180.0
+_CAXA _CXA  _NXA  _C3XA     2.500         2     180.0
+_OXA  _CXA  _NXA  _C3XA     2.500         2     180.0
+_CCXA _C3XA _NXA  _CXA      0.000         2       0.0
+_CCXA _C3XA _NXA  _C3XA     0.000         2       0.0
+_H1XA _C3XA _NXA  _CXA      0.000         2     180.0
+_H1XA _C3XA _NXA  _C3XA     0.000         2       0.0
+_NXA  _C3XA _CCXA _OSXA     0.000         3       0.0
+_H1XA _C3XA _CCXA _OSXA     0.000         3       0.0
+_NXA  _C3XA _CCXA _CDXA     0.000         3       0.0
+_H1XA _C3XA _CCXA _CDXA     0.000         3       0.0
+_C3XA _CCXA _OSXA _CCXA     1.050         2     180.0
+_CDXA _CCXA _OSXA _CCXA     1.050         2     180.0
+_C3XA _CCXA _CDXA _CDXA     4.000         2     180.0
+_OSXA _CCXA _CDXA _CDXA     4.000         2     180.0
+_C3XA _CCXA _CDXA _HAXA     4.000         2     180.0
+_OSXA _CCXA _CDXA _HAXA     4.000         2     180.0
+_H4XA _CCXA _OSXA _CCXA     1.050         2     180.0
+_H4XA _CCXA _CDXA _CDXA     4.000         2     180.0
+_H4XA _CCXA _CDXA _HAXA     4.000         2     180.0
+_CCXA _CDXA _CDXA _CCXA     4.000         2     180.0
+_CCXA _CDXA _CDXA _HAXA     4.000         2     180.0
+_HAXA _CDXA _CDXA _HAXA     4.000         2     180.0
+
+IMPROPER
+_CAXA _CAXA _CAXA _HAXA     1.100         2     180.0
+_CAXA _CAXA _CAXA _OHXA     1.100         2     180.0
+_CAXA _CAXA _CAXA _CCXA     1.100         2     180.0
+_CXA  _CAXA _CAXA _CAXA     1.100         2     180.0
+_CAXA _NXA  _CCXA _NDXA     1.100         2     180.0
+_CXA  _CAXA _NXA  _CCXA     1.100         2     180.0
+_CXA  _HNXA _NSXA _NDXA     1.100         2     180.0
+_NXA  _NSXA _CXA  _OXA     10.500         2     180.0
+_CAXA _CAXA _CAXA _NXA      1.100         2     180.0
+_CAXA _CAXA _CAXA _FXA      1.100         2     180.0
+_CAXA _NXA  _CXA  _OXA     10.500         2     180.0
+_CXA  _C3XA _NXA  _C3XA     1.100         2     180.0
+_C3XA _CDXA _CCXA _OSXA     1.100         2     180.0
+_CDXA _H4XA _CCXA _OSXA     1.100         2     180.0
+_CCXA _CDXA _CDXA _HAXA     1.100         2     180.0
+
+
+NONBONDED nbxmod  5 atom cdiel shift vatom vdistance vswitch -
+cutnb 14.0 ctofnb 12.0 ctonnb 10.0 eps 1.0 e14fac 1.0 wmin 1.5
+!                Emin     Rmin/2              Emin/2     Rmin  (for 1-4's)
+!             (kcal/mol)    (A)
+_CAXA      0.00   -0.0988    1.8606      0.00   -0.0494    1.8606
+_CCXA      0.00   -0.0988    1.8606      0.00   -0.0494    1.8606
+_NDXA      0.00   -0.0941    1.8993      0.00   -0.0471    1.8993
+_NXA       0.00   -0.1636    1.7852      0.00   -0.0818    1.7852
+_OHXA      0.00   -0.0930    1.8200      0.00   -0.0465    1.8200
+_NSXA      0.00   -0.1174    1.8352      0.00   -0.0587    1.8352
+_CXA       0.00   -0.0988    1.8606      0.00   -0.0494    1.8606
+_OXA       0.00   -0.1463    1.7107      0.00   -0.0732    1.7107
+_C3XA      0.00   -0.1078    1.9069      0.00   -0.0539    1.9069
+_OSXA      0.00   -0.0726    1.7713      0.00   -0.0363    1.7713
+_CDXA      0.00   -0.0988    1.8606      0.00   -0.0494    1.8606
+_FXA       0.00   -0.0832    1.7029      0.00   -0.0416    1.7029
+_HAXA      0.00   -0.0161    1.4735      0.00   -0.0080    1.4735
+_HOXA      0.00   -0.0047    0.3019      0.00   -0.0024    0.3019
+_HNXA      0.00   -0.0100    0.6210      0.00   -0.0050    0.6210
+_H1XA      0.00   -0.0208    1.3593      0.00   -0.0104    1.3593
+_H4XA      0.00   -0.0161    1.4235      0.00   -0.0080    1.4235

@@ -1,0 +1,1 @@
+{"systype":null,"dimensions":["72","72","72","90.0","90.0","90.0"],"input":["amber"],"forcefield":{"type":"amber","files":["leaprc.protein.ff19SB","leaprc.gaff2","leaprc.water.tip3p"],"custom":[["amber\/ligand\/6gw\/6GW.frcmod","parm"],["amber\/ligand\/6gw\/6GW.prep","prep"]],"wtype":"TIP3P","itype":"12-6"},"hmr":false}

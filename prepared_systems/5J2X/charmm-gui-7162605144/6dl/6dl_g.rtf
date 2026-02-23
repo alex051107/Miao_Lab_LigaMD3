@@ -1,0 +1,116 @@
+* Topology File.
+* 
+   99   1
+MASS    -1 _CAXA  12.010000
+MASS    -1 _OHXA  16.000000
+MASS    -1 _CCXA  12.010000
+MASS    -1 _NDXA  14.010000
+MASS    -1 _NSXA  14.010000
+MASS    -1 _CXA   12.010000
+MASS    -1 _NXA   14.010000
+MASS    -1 _OXA   16.000000
+MASS    -1 _BRXA  79.900000
+MASS    -1 _FXA   19.000000
+MASS    -1 _HAXA   1.008000
+MASS    -1 _HOXA   1.008000
+MASS    -1 _HNXA   1.008000
+
+RESI 6DL  0.000000
+GROUP
+ATOM     C7  _CCXA   0.4260
+ATOM     N1  _NDXA  -0.4928
+GROUP
+ATOM     N2  _NSXA  -0.2514
+ATOM     C8   _CXA   0.7430
+ATOM     H5  _HNXA   0.3455
+ATOM     O3   _OXA  -0.5680
+GROUP
+ATOM     N3   _NXA  -0.3010
+ATOM     C9  _CAXA   0.0171
+GROUP
+ATOM    C10  _CAXA   0.1314
+ATOM    C11  _CAXA  -0.1515
+ATOM     F1   _FXA  -0.1274
+ATOM     H6  _HAXA   0.1560
+GROUP
+ATOM    C12  _CAXA  -0.0825
+ATOM    C13  _CAXA  -0.1325
+ATOM     H7  _HAXA   0.1450
+ATOM     H8  _HAXA   0.1460
+GROUP
+ATOM    C14  _CAXA  -0.0675
+ATOM     H9  _HAXA   0.1550
+GROUP
+ATOM     C4  _CAXA  -0.2334
+ATOM     C3  _CAXA   0.2286
+GROUP
+ATOM     C2  _CAXA  -0.1975
+ATOM     C1  _CAXA   0.0511
+ATOM     H1  _HAXA   0.1790
+GROUP
+ATOM     C6  _CAXA  -0.1514
+ATOM     C5  _CAXA   0.0085
+ATOM    Br1  _BRXA  -0.0676
+ATOM     H2  _HAXA   0.1600
+GROUP
+ATOM     O1  _OHXA  -0.4736
+ATOM     H3  _HOXA   0.4370
+GROUP
+ATOM     O2  _OHXA  -0.4736
+ATOM     H4  _HOXA   0.4420
+
+BOND C1    C2           	! dist	    1.3898
+BOND C1    C6           	! dist	    1.3819
+BOND C1    O1           	! dist	    1.3485
+BOND C2    C3           	! dist	    1.3879
+BOND C2    H1           	! dist	    1.0896
+BOND C3    C4           	! dist	    1.4107
+BOND C3    O2           	! dist	    1.3506
+BOND C4    C5           	! dist	    1.3956
+BOND C4    C7           	! dist	    1.4721
+BOND C5    C6           	! dist	    1.3749
+BOND C5    H2           	! dist	    1.0902
+BOND C6    Br1          	! dist	    1.8741
+BOND O1    H3           	! dist	    0.9600
+BOND O2    H4           	! dist	    0.9595
+BOND C7    N1           	! dist	    1.3024
+BOND C7    N3           	! dist	    1.3991
+BOND N1    N2           	! dist	    1.3973
+BOND N2    C8           	! dist	    1.3427
+BOND N2    H5           	! dist	    1.0105
+BOND C8    N3           	! dist	    1.3510
+BOND C8    O3           	! dist	    1.2212
+BOND N3    C9           	! dist	    1.4160
+BOND C9    C10          	! dist	    1.4064
+BOND C9    C14          	! dist	    1.3957
+BOND C10   C11          	! dist	    1.3887
+BOND C10   F1           	! dist	    1.3452
+BOND C11   C12          	! dist	    1.3898
+BOND C11   H6           	! dist	    1.0893
+BOND C12   C13          	! dist	    1.3935
+BOND C12   H7           	! dist	    1.0903
+BOND C13   C14          	! dist	    1.3872
+BOND C13   H8           	! dist	    1.0900
+BOND C14   H9           	! dist	    1.0904
+
+
+
+IMPH C2    C6    C1    O1   
+IMPH C1    C3    C2    H1   
+IMPH C2    C4    C3    O2   
+IMPH C3    C5    C4    C7   
+IMPH C4    C6    C5    H2   
+IMPH Br1   C5    C6    C1   
+IMPH C4    N3    C7    N1   
+IMPH C8    H5    N2    N1   
+IMPH N3    N2    C8    O3   
+IMPH C8    C9    N3    C7   
+IMPH C10   C14   C9    N3   
+IMPH C9    C11   C10   F1   
+IMPH C10   C12   C11   H6   
+IMPH C11   C13   C12   H7   
+IMPH C12   C14   C13   H8   
+IMPH C9    C13   C14   H9   
+
+
+

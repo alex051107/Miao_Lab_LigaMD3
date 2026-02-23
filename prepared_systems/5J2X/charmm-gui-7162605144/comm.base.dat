@@ -1,0 +1,1 @@
+cd /home/charmm-gui/www/../data/www/7162605144/amber/ligand/6dl; OMP_NUM_THREADS=1 /home/charmm-gui/local//miniforge3/bin/antechamber -i 6DL.pdb -fi pdb -o 6DL.ac -fo ac -at gaff2 -c bcc -nc 0 -s 2 -pf y

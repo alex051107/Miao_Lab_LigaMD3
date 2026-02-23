@@ -1,0 +1,61 @@
+LiGaMD3 equilibration simulation
+ &cntrl
+    imin=0,        ! No minimization
+    irest=0,       ! This IS a new MD simulation
+    ntx=1,         ! read coordinates only
+
+    ! Temperature control
+    ntt=3,         ! Langevin dynamics
+    gamma_ln=1.0,  ! Friction coefficient (ps^-1)
+    tempi=300.0,   ! Initial temperature
+    temp0=300.0,   ! Target temperature
+    ig=-1,         ! random seed
+
+    ! Potential energy control
+    cut=9.0,      ! nonbonded cutoff, in angstroms
+
+    ! MD settings
+    nstlim=22000000, ! simulation length
+    dt=0.002,      ! time step (ps)
+
+    ! SHAKE
+    ntc=2,         ! Constrain bonds containing hydrogen
+    ntf=1,         ! Do not calculate forces of bonds containing hydrogen
+
+    ! Control how often information is printed
+    ntpr=5000,     ! Print energies every 1000 steps
+    ntwx=5000,     ! Print coordinates every 1000 steps to the trajectory
+    ntwr=5000,    ! Print a restart file every 10K steps (can be less frequent)
+    ntxo=2,        ! Write NetCDF format
+    ioutfm=1,      ! Write NetCDF format (always do this!)
+
+    ! Wrap coordinates when printing them to the same unit cell
+    iwrap=1,
+    ntwprt = 3325,
+
+    ! Constant pressure control. Note that ntp=3 requires barostat=1
+    barostat=1,    ! Berendsen... change to 2 for MC barostat
+    ntp=1,         ! 1=isotropic, 2=anisotropic, 3=semi-isotropic w/ surften
+    pres0=1.0,     ! Target external pressure, in bar
+    taup=0.5,      ! Berendsen coupling constant (ps)
+
+    ! Set water atom/residue names for SETTLE recognition
+    watnam='WAT', ! Water residues are named TIP3
+    owtnm='O', ! Water oxygens are named OH2
+
+    ! GaMD parameters
+    igamd = 28, irest_gamd = 0,
+    ntcmd = 2000000, nteb = 20000000, ntave = 200000,
+    ntcmdprep = 400000, ntebprep = 400000,
+    sigma0P = 1, sigma0D = 6.0,sigma0B=6.0,iEP=2,iED=1,iEB=1,
+    bgpro2atm=1,edpro2atm=3277,
+gti_cpu_output = 0, gti_add_sc = 1,
+icfe = 1,
+ifsc = 1,
+timask1 = ':211',
+scmask1 = ':211',
+timask2 = '',
+scmask2='',
+
+ibblig = 1, nlig = 1, atom_p = 1261, atom_l = 28, dblig = 3.0
+

@@ -1,0 +1,27 @@
+ &cntrl
+    imin = 0, irest = 1, ntx = 5,
+    nstlim = 22000000,
+    dt = 0.002,
+    ntc = 2, ntf = 2,
+    ntt = 3, gamma_ln = 1.0, temp0 = 310.15,
+    ntb = 2, ntp = 1, barostat = 2,
+    ntwx = 5000, ntwr = 5000, ntpr = 5000,
+    cut = 9.0,
+    igamd = 28,
+    irest_gamd = 0,
+    ntcmd = 2000000,
+    nteb = 20000000,
+    ntave = 200000,
+    sigma0P = 2.5,         # <- 需要优化的关键参数 (初始设为 2.5)
+    sigma0D = 6.0,
+    sigma0B = 6.0,
+    iEP = 2, iED = 1, iEB = 1,
+    Bgpro2atm = 1,
+    Edpro2atm = 3277,
+    Timask1 = ':211',
+    Scmask1 = ':211',
+    ibblig = 1, nlig = 1,
+    atom_p = 9999,         # <- 请修改为 5J20 实际的蛋白测原子序号 (PyMOL 中查看)
+    atom_l = 9999,         # <- 请修改为 5J20 实际的配体测原子序号 (PyMOL 中查看)
+    dblig = 3.0            # <- 距离阈值，可根据 PyMOL 调整
+ /

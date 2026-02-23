@@ -1,0 +1,97 @@
+ATOM      1  C1  6FJ   301      -5.013   2.964   6.103  1.00  0.00      HETA C
+ATOM      2  C2  6FJ   301      -2.996   0.801   1.663  1.00  0.00      HETA C
+ATOM      3  C3  6FJ   301      -4.160   0.061   1.984  1.00  0.00      HETA C
+ATOM      4  C4  6FJ   301      -5.325   0.748   2.383  1.00  0.00      HETA C
+ATOM      5  C5  6FJ   301      -5.297   2.141   2.580  1.00  0.00      HETA C
+ATOM      6  C6  6FJ   301      -4.143   2.867   2.249  1.00  0.00      HETA C
+ATOM      7  C7  6FJ   301      -2.975   2.204   1.838  1.00  0.00      HETA C
+ATOM      8  C8  6FJ   301      -6.478   2.863   3.116  1.00  0.00      HETA C
+ATOM      9  N1  6FJ   301      -7.719   2.830   2.660  1.00  0.00      HETA N
+ATOM     10  N2  6FJ   301      -6.414   3.693   4.228  1.00  0.00      HETA N
+ATOM     11  O1  6FJ   301      -6.471   0.066   2.685  1.00  0.00      HETA O
+ATOM     12  O2  6FJ   301      -1.865   0.199   1.247  1.00  0.00      HETA O
+ATOM     13  N3  6FJ   301      -8.481   3.671   3.489  1.00  0.00      HETA N
+ATOM     14  C9  6FJ   301      -7.653   4.172   4.440  1.00  0.00      HETA C
+ATOM     15  O3  6FJ   301      -7.959   4.909   5.376  1.00  0.00      HETA O
+ATOM     16  C10 6FJ   301      -5.280   3.880   5.069  1.00  0.00      HETA C
+ATOM     17  C11 6FJ   301      -4.398   4.958   4.896  1.00  0.00      HETA C
+ATOM     18  C12 6FJ   301      -3.281   5.124   5.727  1.00  0.00      HETA C
+ATOM     19  C13 6FJ   301      -3.033   4.206   6.751  1.00  0.00      HETA C
+ATOM     20  C14 6FJ   301      -1.846   3.092   1.441  1.00  0.00      HETA C
+ATOM     21  N4  6FJ   301      -1.691   3.509   0.146  1.00  0.00      HETA N
+ATOM     22  O4  6FJ   301      -1.145   3.552   2.328  1.00  0.00      HETA O
+ATOM     23  C15 6FJ   301      -0.652   4.494  -0.212  1.00  0.00      HETA C
+ATOM     24  C16 6FJ   301      -1.328   5.731  -0.764  1.00  0.00      HETA C
+ATOM     25  C17 6FJ   301      -3.895   3.135   6.923  1.00  0.00      HETA C
+ATOM     26  C18 6FJ   301      -2.451   2.954  -0.973  1.00  0.00      HETA C
+ATOM     27  O5  6FJ   301      -2.207   6.512  -0.095  1.00  0.00      HETA O
+ATOM     28  C19 6FJ   301      -2.599   7.517  -0.890  1.00  0.00      HETA C
+ATOM     29  C20 6FJ   301      -1.989   7.374  -2.091  1.00  0.00      HETA C
+ATOM     30  C21 6FJ   301      -1.157   6.227  -2.012  1.00  0.00      HETA C
+ATOM     31  F1  6FJ   301      -4.652   5.849   3.916  1.00  0.00      HETA F
+ATOM     32  H1  6FJ   301      -5.666   2.107   6.249  1.00  0.00      HETA H
+ATOM     33  H2  6FJ   301      -4.186  -1.019   1.881  1.00  0.00      HETA H
+ATOM     34  H3  6FJ   301      -4.145   3.953   2.322  1.00  0.00      HETA H
+ATOM     35  H4  6FJ   301      -6.472  -0.855   2.294  1.00  0.00      HETA H
+ATOM     36  H5  6FJ   301      -2.006  -0.759   1.364  1.00  0.00      HETA H
+ATOM     37  H6  6FJ   301      -9.432   3.982   3.302  1.00  0.00      HETA H
+ATOM     38  H7  6FJ   301      -2.613   5.963   5.562  1.00  0.00      HETA H
+ATOM     39  H8  6FJ   301      -2.164   4.318   7.400  1.00  0.00      HETA H
+ATOM     40  H9  6FJ   301      -0.041   4.088  -1.012  1.00  0.00      HETA H
+ATOM     41  H10 6FJ   301      -0.027   4.772   0.643  1.00  0.00      HETA H
+ATOM     42  H11 6FJ   301      -3.677   2.419   7.712  1.00  0.00      HETA H
+ATOM     43  H12 6FJ   301      -3.374   2.474  -0.628  1.00  0.00      HETA H
+ATOM     44  H13 6FJ   301      -1.836   2.212  -1.497  1.00  0.00      HETA H
+ATOM     45  H14 6FJ   301      -2.718   3.753  -1.673  1.00  0.00      HETA H
+ATOM     46  H15 6FJ   301      -3.310   8.238  -0.514  1.00  0.00      HETA H
+ATOM     47  H16 6FJ   301      -2.118   8.019  -2.951  1.00  0.00      HETA H
+ATOM     48  H17 6FJ   301      -0.523   5.827  -2.798  1.00  0.00      HETA H
+TER
+CONECT    1   16   25   32
+CONECT    2    3    7   12
+CONECT    3    2    4   33
+CONECT    4    3    5   11
+CONECT    5    4    6    8
+CONECT    6    5    7   34
+CONECT    7    2    6   20
+CONECT    8    5    9   10
+CONECT    9    8   13
+CONECT   10    8   14   16
+CONECT   11    4   35
+CONECT   12    2   36
+CONECT   13    9   14   37
+CONECT   14   10   13   15
+CONECT   15   14
+CONECT   16    1   10   17
+CONECT   17   16   18   31
+CONECT   18   17   19   38
+CONECT   19   18   25   39
+CONECT   20    7   21   22
+CONECT   21   20   23   26
+CONECT   22   20
+CONECT   23   21   24   40   41
+CONECT   24   23   27   30
+CONECT   25    1   19   42
+CONECT   26   21   43   44   45
+CONECT   27   24   28
+CONECT   28   27   29   46
+CONECT   29   28   30   47
+CONECT   30   24   29   48
+CONECT   31   17
+CONECT   32    1
+CONECT   33    3
+CONECT   34    6
+CONECT   35   11
+CONECT   36   12
+CONECT   37   13
+CONECT   38   18
+CONECT   39   19
+CONECT   40   23
+CONECT   41   23
+CONECT   42   25
+CONECT   43   26
+CONECT   44   26
+CONECT   45   26
+CONECT   46   28
+CONECT   47   29
+CONECT   48   30
