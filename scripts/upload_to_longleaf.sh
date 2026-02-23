@@ -21,12 +21,33 @@ if [ ! -d "$SYSTEM_DIR" ]; then
     exit 1
 fi
 
-# Find the unzipped charmm-gui folder
+# Step 1: Handle charmm-gui.tgz extraction
+TGZ_FILE=$(find "$SYSTEM_DIR" -maxdepth 1 -name "charmm-gui*.tgz" | head -n 1)
 CG_DIR=$(find "$SYSTEM_DIR" -maxdepth 1 -type d -name "charmm-gui-*" | head -n 1)
 
-if [ -z "$CG_DIR" ]; then
-    echo "Error: No extracted charmm-gui-* folder found in ${SYSTEM_DIR}"
+if [ -n "$TGZ_FILE" ]; then
+    echo "Found CHARMM-GUI archive: $(basename "$TGZ_FILE")"
+    if [ -z "$CG_DIR" ]; then
+        echo "Extracting archive..."
+        tar -xzf "$TGZ_FILE" -C "$SYSTEM_DIR"
+        CG_DIR=$(find "$SYSTEM_DIR" -maxdepth 1 -type d -name "charmm-gui-*" | head -n 1)
+    else
+        echo "Archive is already extracted to: $(basename "$CG_DIR")"
+    fi
+elif [ -n "$CG_DIR" ]; then
+    echo "Found extracted CHARMM-GUI folder: $(basename "$CG_DIR")"
+else
+    echo "Error: No charmm-gui*.tgz or extracted charmm-gui-* folder found in ${SYSTEM_DIR}"
     exit 1
+fi
+
+# Step 2: Prompt user for upload confirmation
+echo ""
+read -p "Do you want to upload this CHARMM-GUI setup to Longleaf and run Amber config now? (y/n): " -n 1 -r
+echo
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    echo "Upload aborted by user."
+    exit 0
 fi
 
 CG_FOLDER_NAME=$(basename "$CG_DIR")
