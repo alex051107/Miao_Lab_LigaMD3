@@ -1,0 +1,21 @@
+# Ignore CHARMM-GUI download archives
+*.tgz
+*.tar.gz
+
+# Ignore large PyMOL sessions or temp files
+*.pse
+*.tmp
+tmp_env/
+__pycache__/
+
+# Ignore MD trajectories and restart files (if they end up here)
+*.nc
+*.rst
+*.rst7
+*.ncdf
+*.dcd
+*.crd
+
+# Ignore log files from simulations
+*.out
+*.log
