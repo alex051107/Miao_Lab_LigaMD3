@@ -1,0 +1,27 @@
+name: Parameter gate regression
+on:
+  pull_request:
+    paths:
+      - '_scripts/check_ligamd3_tutorial_params.py'
+      - '_scripts/validate_before_submit.sh'
+      - 'tests/test_ligamd3_parameter_gate.py'
+      - '.github/workflows/parameter-gate.yml'
+  push:
+    branches: [main]
+    paths:
+      - '_scripts/check_ligamd3_tutorial_params.py'
+      - '_scripts/validate_before_submit.sh'
+      - 'tests/test_ligamd3_parameter_gate.py'
+      - '.github/workflows/parameter-gate.yml'
+permissions:
+  contents: read
+jobs:
+  synthetic-regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python3 -m unittest discover -s tests -p 'test_ligamd3_parameter_gate.py' -v
+      - run: bash -n _scripts/validate_before_submit.sh

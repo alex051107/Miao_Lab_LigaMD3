@@ -2,6 +2,16 @@
 
 This repository contains the complete computational pipeline for preparing HSP90-ligand complexes for LiGaMD3 enhanced sampling molecular dynamics simulations on the UNC Longleaf cluster.
 
+## LiGaMD3 parameter checks
+
+For new Equilibration or Production inputs, start with the
+[parameter validation guide](docs/parameter-validation.md). It explains the
+stage-specific tutorial/lab profile, explicit cMD source requirement, and
+read-only checks. Historical examples below are not current submission rules.
+Passing a parameter check does not establish a bound seed, a valid sigma
+boundary, scientific correctness, or permission to submit. The new gate is a
+review candidate; live deployment and missing source settings remain separate.
+
 ## 📁 Repository Structure
 
 *   **/new_systems/**: Contains the curated, error-free initial structures for CHARMM-GUI. Each subfolder contains strictly 3 files:
@@ -19,7 +29,7 @@ This repository contains the complete computational pipeline for preparing HSP90
 2.  **CHARMM-GUI Solution Builder (Web)**: Upload the processed files, use Antechamber (gaff2 + AM1-BCC) for the ligand, configure waterbox (fit + 10Å), and select Amber outputs (FF14SB + TIP3P + GAFF2) with NVT eq and NPT prod.
 3.  **Coordinate Sanitization (Longleaf)**: CRITICAL: Use `pdb4amber` on the output to homogenize the Amber atom numbering before touching anything else.
 4.  **PyMOL Recalibration (Local)**: Analyze the `amber.pdb` to find target contact distances (e.g., ASP79 OD2) and map their absolute `atom_p` and relative `atom_l` indices for GaMD.
-5.  **cMD & Equilibration (Longleaf)**: Run 200 ns cMD, manually construct the `md.in` file to optimize the `sigma0P` parameter (usually 2.5-3.5) without causing immediate dissociation.
+5.  **cMD & Equilibration (Longleaf)**: Follow the approved system-specific cMD duration and sigma-search plan. Generate new inputs from reviewed sources and run the parameter gate; do not hand-edit frozen inputs or treat a historical sigma range as a universal default.
 6.  **Production (Longleaf)**: Launch 6 replicas of 100 ns production runs based on the optimal `sigma0P` equilibration frame.
 
 ## 🛑 Maintenance

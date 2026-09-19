@@ -1,5 +1,16 @@
 # HSP90 cMD 模拟操作记录
 
+## 2026-09-19 — LiGaMD3 parameter-gate review candidate
+
+- Add a strict shared parser and unconditional submission parameter/file gate.
+- Require explicit cMD source settings at the submission-validation boundary;
+  distinguish fixed-only diagnostics from source-checked validation.
+- Add synthetic regressions for historical wrong switches and false-PASS paths.
+- Document stage-specific timing, unsupported inputs, and unresolved deployment
+  requirements in [the guide](docs/parameter-validation.md) and
+  [decision note](docs/decisions/2026-09-19-parameter-gate.md).
+- No live automation, cluster tool, frozen simulation input, or job was changed.
+
 ## 项目信息
 
 一定要记住
