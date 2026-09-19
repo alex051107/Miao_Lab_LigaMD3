@@ -1,7 +1,8 @@
 #!/bin/bash
 # Read-only parameter/file gate. This never submits or grants scientific approval.
 # Usage: bash validate_before_submit.sh JOB_DIR [auto|equil|production] [--cmd-input CMD_MDIN]
-# Without --cmd-input, require JOB_DIR/cmd-source.mdin, pointing to the exact cMD source.
+# Bind --cmd-input or --reference-equil (or corresponding LIGAMD3_* environment variable).
+# Without either source mode, require JOB_DIR/cmd-source.mdin; no unverified fallback.
 set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 if [[ $# -eq 0 ]]; then

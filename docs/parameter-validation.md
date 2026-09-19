@@ -13,11 +13,15 @@ Requires Python 3.10+ and Bash; no third-party Python packages or cluster access
 # Diagnostic: fixed parameters only if no cMD source is available.
 python3 _scripts/check_ligamd3_tutorial_params.py JOB_DIR equil
 
-# Submission parameter/file gate: the exact source cMD input is mandatory.
+# First cMD-to-Equil transition: identify the exact cMD source.
 bash _scripts/validate_before_submit.sh JOB_DIR equil --cmd-input SOURCE_CMD_MDIN
 bash _scripts/validate_before_submit.sh REPLICA_DIR production --cmd-input SOURCE_CMD_MDIN
 
-# With no --cmd-input, the submission gate requires JOB_DIR/cmd-source.mdin.
+# Replication/Production from an already reviewed Equil: bind that exact source.
+bash _scripts/validate_before_submit.sh REPLICA_DIR production --reference-equil REVIEWED_EQUIL_DIR
+
+# With neither explicit source mode nor its environment variable,
+# the submission gate requires JOB_DIR/cmd-source.mdin.
 # This can be a recorded link to the actual source input in a NEW staging area.
 bash _scripts/validate_before_submit.sh JOB_DIR
 ```
@@ -25,9 +29,12 @@ bash _scripts/validate_before_submit.sh JOB_DIR
 Pass the individual job/replica directory, not `md.in` or a Production group.
 Stage names are `equil`, `production`, and `auto`; unknown names are errors.
 `auto` reads `irest_gamd` from the parsed input, never from the directory name.
-Explicit stage and launch-script stage must agree with the input.
+Explicit stage and launch flags must agree with the input. The existing lab
+builder retains the filename run-equil.pbs for Production; this is supported
+when the actual parameters and -c/-r flags are correct. A filename is not stage
+evidence. Multiple possible launch scripts still fail closed.
 
-Both commands are read-only. Exit 0 means the stated checks passed, not that the
+These validation commands are read-only. Exit 0 means the stated checks passed, not that the
 job is safe to submit. Exit 1 is a failed check/read; invalid command-line usage
 returns nonzero. A fixed-only diagnostic explicitly prints **cMD source
 UNVERIFIED**. The submission entry point cannot downgrade to that diagnostic.
@@ -37,7 +44,7 @@ UNVERIFIED**. The submission entry point cannot downgrade to that diagnostic.
 | Scope | Requirements |
 | --- | --- |
 | Both stages | `ntf=1`, `barostat=1`, `irest=0`, `ntx=1`, `tempi=temp0`; the fixed thermostat, integration, boost, output-format, and ligand settings in `COMMON` |
-| System inheritance | `temp0`, `ntp`, `taup` match the explicitly identified conventional MD (cMD) source; surface-tension keys match when present in either input |
+| System inheritance | For a first transition, `temp0`, `ntp`, `taup` and surface-tension keys match explicit cMD evidence; for reviewed Equil replication/Production, parameters and exact files must match the reference except the allowed stage changes |
 | Topology/time | Read NATOM from the target `step3_input.parm7`; `ntave>=4*NATOM` in both stages; positive integral counts/indices and finite positive temperatures, sigma, and contact distance |
 | Equil only | `irest_gamd=0`, `ntcmd=10*ntave`, both preparation windows `2*ntave`, positive `nteb` divisible by `ntave`, `nstlim=ntcmd+nteb` |
 | Production only | `irest_gamd=1`, `ntcmd=nteb=ntcmdprep=ntebprep=0`, `nstlim=50000000`, `ntpr=ntwx=500` |
@@ -64,7 +71,7 @@ closed. Titles and other namelists cannot supply missing parameters.
 The launch check supports one literal `pmemd.cuda` command (line continuations
 are allowed), `-O`, and exactly one each of `-i`, `-p`, `-c`, `-r`, `-o`, `-x`,
 and `-gamd` using the conventional stage filenames. `command -v pmemd.cuda` is
-allowed. Dynamic filenames, wrappers such as `srun`, extra flags, and multiple
+allowed, as is `which pmemd.cuda`. Dynamic filenames, wrappers such as `srun`, extra flags, and multiple
 launches are rejected pending an explicitly supported template. This is a
 conservative static flag check, **not** a shell interpreter or a proof that
 arbitrary earlier shell code cannot modify a file or change directory.
@@ -102,19 +109,28 @@ This gate no longer queries `squeue` or prints “no existing jobs” when a que
 fails. It never establishes queue state. The action layer must reconcile exact
 WorkDirs/receipts before submission; an unknown scheduler response is not
 permission to retry. An existing `safe_submit.sh` caller can still invoke this
-validator with one directory, but now needs the explicit recorded cMD source.
+validator with one directory, but now needs the explicit recorded cMD source
+or an exact reviewed Equil reference through its environment variable.
 Its independent review and submission-intent protections must remain in place.
 
 ## Deployment boundary
 
-This PR is a **review candidate, not a live rollout**. It adds a self-contained
-version of two previously untracked operational tools. It does not update a
-running automation, rewrite a job, replace a remote shared tool, or submit a
-simulation. The existing rule/skill copies and source-staging conventions must
-be reconciled before activation; the missing-source behavior above is an
-intentional compatibility break, not something to bypass.
+The user authorized a controlled rollout on 2026-09-19 after the initial draft.
+This release includes an exact reviewed-Equil reference path to preserve valid
+replication workflows without inventing omitted cMD defaults. The actual
+deployment receipt, not this document or a PR status, establishes which host and
+entry point have been updated. Frozen job inputs and existing simulations are
+not migrated by replacing a tool. Missing first-transition source evidence is
+still an explicit blocker, not something to bypass.
 
-After review, stage a versioned tool release, run the tests on the execution
+`--reference-equil` (or `LIGAMD3_REFERENCE_EQUIL` for existing callers) and
+`--cmd-input` (or `LIGAMD3_CMD_INPUT`) are alternative source modes. The reference
+must have existing scientific/source approval; its fixed Equil parameters are
+checked again, only sigma may change for Equil replication, and only P03's eight
+keys may change for Production. Topology and applicable seed/boost files must be
+identical. This does not reopen or retroactively certify the original transition.
+
+For deployment, stage a versioned tool release, run the tests on the execution
 host, validate representative exact new job artifacts in read-only mode, and
 record which entry point/version the automation actually calls. Coordinate
 shared-runtime changes with other operators. Do not mass-edit frozen inputs or

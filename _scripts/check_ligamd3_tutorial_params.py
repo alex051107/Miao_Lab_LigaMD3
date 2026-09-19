@@ -7,6 +7,7 @@ and deployment boundary. Uses only the Python standard library.
 from __future__ import annotations
 
 import argparse
+import hashlib
 from decimal import Decimal, InvalidOperation
 import os
 from pathlib import Path
@@ -207,11 +208,13 @@ def validate(values: dict[str, str], mode: str, count: int,
 def check_submission_files(directory: Path, mode: str) -> list[str]:
     """Check the supported literal launch template; never execute its shell."""
     errors = []
-    expected_script = "run-equil.pbs" if mode == "equil" else "run-prod.pbs"
     scripts = [p.name for p in (directory / name for name in
                ("run-equil.pbs", "run-prod.pbs", "sub-cmd.slum")) if p.exists()]
-    if scripts != [expected_script]:
-        return [f"expected only {expected_script}; found {scripts}"]
+    if len(scripts) != 1 or scripts[0] == "sub-cmd.slum":
+        return [f"expected exactly one Equil/Production launch script; found {scripts}"]
+    # The lab Production builder intentionally retains run-equil.pbs. Stage is
+    # established by parsed parameters and -c/-r, never by the filename.
+    expected_script = scripts[0]
     coordinate = "step5_10.rst7" if mode == "equil" else "gamd-1.rst"
     restart = "gamd-1.rst" if mode == "equil" else "md-1.rst"
     required = {"step3_input.parm7": 1000, coordinate: 100000}
@@ -226,7 +229,7 @@ def check_submission_files(directory: Path, mode: str) -> list[str]:
     for line in script.splitlines():
         tokens = shlex.split(line, comments=True)
         if tokens and any("pmemd.cuda" in token for token in tokens):
-            if tokens == ["command", "-v", "pmemd.cuda"]:
+            if tokens in (["command", "-v", "pmemd.cuda"], ["which", "pmemd.cuda"]):
                 continue
             if tokens[0] != "pmemd.cuda" or any(c in line for c in "$`;|&<>"):
                 errors.append("unsupported dynamic/wrapped pmemd.cuda launch; use the literal template")
@@ -261,11 +264,48 @@ def check_submission_files(directory: Path, mode: str) -> list[str]:
     return errors
 
 
+def check_reference(directory: Path, reference: Path, values: dict[str, str], mode: str) -> list[str]:
+    """Validate exact inheritance for replicas/Production from a reviewed Equil.
+
+    This preserves an already approved source; it does not retrospectively
+    certify its cMD transition or authorize choosing that seed.
+    """
+    if directory.resolve() == reference.resolve():
+        return ["reference Equil must differ from target"]
+    if any(part.startswith(("_quarantine", "_withdrawn", "_archive")) for part in reference.resolve().parts):
+        return ["excluded reference Equil directory"]
+    original = read_cntrl(reference / "md.in")
+    errors = ["reference Equil: " + e for e in validate(
+        original, "equil", natom(reference / "step3_input.parm7"))]
+    allowed = {"sigma0p"} if mode == "equil" else {
+        "nstlim", "irest_gamd", "ntcmd", "nteb", "ntcmdprep", "ntebprep", "ntpr", "ntwx"}
+    for key in set(values) | set(original):
+        if key in allowed:
+            continue
+        a, b = values.get(key), original.get(key)
+        if a != b and not (number(a) is not None and number(a) == number(b)):
+            errors.append(f"{key} differs from the exact reference Equil")
+    names = ["step3_input.parm7", "step5_10.rst7"] if mode == "equil" else [
+        "step3_input.parm7", "gamd-1.rst", "gamd-restart.dat"]
+    for name in names:
+        def digest(path):
+            h = hashlib.sha256()
+            with path.open("rb") as stream:
+                for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+                    h.update(chunk)
+            return h.digest()
+        if digest(directory / name) != digest(reference / name):
+            errors.append(f"{name} differs from exact reference Equil")
+    return errors
+
+
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--version", action="version", version="ligamd3-parameters-20260919-r2")
     parser.add_argument("job_dir", type=Path)
     parser.add_argument("mode", nargs="?", choices=("auto", "equil", "production"), default="auto")
     parser.add_argument("--cmd-input", type=Path, help="exact source cMD production input")
+    parser.add_argument("--reference-equil", type=Path, help="reviewed Equil reference for exact replication/Production inheritance")
     parser.add_argument("--submission", action="store_true", help="require cMD source and launch/file checks; does not submit")
     args = parser.parse_args(argv)
     try:
@@ -278,9 +318,13 @@ def main(argv=None) -> int:
             if restart not in (0, 1):
                 raise InvalidInput("cannot infer stage: irest_gamd must be 0 or 1")
             mode = "equil" if restart == 0 else "production"
-        source = args.cmd_input or (args.job_dir / "cmd-source.mdin")
+        explicit_cmd = args.cmd_input or (Path(os.environ["LIGAMD3_CMD_INPUT"]) if os.environ.get("LIGAMD3_CMD_INPUT") else None)
+        reference = args.reference_equil or (Path(os.environ["LIGAMD3_REFERENCE_EQUIL"]) if os.environ.get("LIGAMD3_REFERENCE_EQUIL") else None)
+        if reference is not None and explicit_cmd is not None:
+            raise InvalidInput("choose cMD input OR exact reference Equil, not both")
+        source = explicit_cmd or (args.job_dir / "cmd-source.mdin")
         cmd = None
-        if args.cmd_input is not None or source.exists() or args.submission:
+        if reference is None and (explicit_cmd is not None or source.exists() or args.submission):
             if source.resolve() == (args.job_dir / "md.in").resolve() or (
                 source.exists() and source.samefile(args.job_dir / "md.in")
             ):
@@ -290,6 +334,8 @@ def main(argv=None) -> int:
                 raise InvalidInput("cMD source must not be a GaMD input")
         errors = validate(values, mode, natom(args.job_dir / "step3_input.parm7"),
                           cmd, os.environ.get("LIGAMD3_TEMP"))
+        if reference is not None:
+            errors.extend(check_reference(args.job_dir, reference, values, mode))
         if args.submission:
             errors.extend(check_submission_files(args.job_dir, mode))
         if errors:
@@ -297,7 +343,8 @@ def main(argv=None) -> int:
                 print(f"[FAIL] {error}")
             print(f"FAIL ({len(errors)}) mode={mode}")
             return 1
-        scope = "PARAMETERS_AND_CMD_SOURCE" if cmd is not None else "FIXED_PARAMETERS_ONLY; cMD source UNVERIFIED"
+        scope = ("PARAMETERS_AND_EXACT_REFERENCE_EQUIL; original cMD transition requires its existing review" if reference is not None else
+                 "PARAMETERS_AND_CMD_SOURCE" if cmd is not None else "FIXED_PARAMETERS_ONLY; cMD source UNVERIFIED")
         print(f"PASS {scope} mode={mode}")
         print("Scientific eligibility, exact source lineage, atom identity, and queue state are NOT established.")
         return 0

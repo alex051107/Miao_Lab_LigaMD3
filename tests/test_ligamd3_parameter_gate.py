@@ -163,6 +163,8 @@ class EntryPointTests(unittest.TestCase):
         command = ["bash", str(WRAPPER)] if wrapper else [sys.executable, str(CHECKER)]
         env = os.environ.copy()
         env.pop("LIGAMD3_TEMP", None)
+        env.pop("LIGAMD3_CMD_INPUT", None)
+        env.pop("LIGAMD3_REFERENCE_EQUIL", None)
         return subprocess.run(command + [str(self.directory), *args], capture_output=True, text=True, env=env, timeout=10)
 
     def test_valid_wrapper_and_no_submission_side_effect(self):
@@ -237,8 +239,42 @@ class EntryPointTests(unittest.TestCase):
         (self.directory / "run-equil.pbs").unlink()
         fixture(self.directory, "production")
         self.assertEqual(self.run_gate("production").returncode, 0)
+        (self.directory / "run-prod.pbs").rename(self.directory / "run-equil.pbs")
+        script = self.directory / "run-equil.pbs"
+        script.write_text(script.read_text().replace("command -v pmemd.cuda", "which pmemd.cuda"))
+        self.assertEqual(self.run_gate("production").returncode, 0)
         (self.directory / "md-1.rst").symlink_to("gamd-1.rst")
         self.assertNotEqual(self.run_gate("production").returncode, 0)
+
+    def test_exact_reference_allows_reviewed_replication_without_inventing_cmd_defaults(self):
+        reference = self.directory / "reference"
+        reference.mkdir()
+        fixture(reference)
+        (self.directory / "cmd-source.mdin").unlink()
+        result = self.run_gate("equil", "--reference-equil", str(reference))
+        self.assertEqual(result.returncode, 0, result.stdout)
+        self.assertIn("original cMD transition requires its existing review", result.stdout)
+        (self.directory / "md.in").write_text(mdin(parameters() | {"sigma0p": "1.7"}))
+        self.assertEqual(self.run_gate("--reference-equil", str(reference)).returncode, 0)
+        (self.directory / "md.in").write_text(mdin(parameters() | {"taup": "1"}))
+        self.assertNotEqual(self.run_gate("--reference-equil", str(reference)).returncode, 0)
+        (self.directory / "md.in").write_text(mdin(parameters()))
+        (reference / "step5_10.rst7").write_text("changed")
+        self.assertNotEqual(self.run_gate("--reference-equil", str(reference)).returncode, 0)
+
+    def test_production_reference_checks_exact_seed_sigma_and_parameters(self):
+        reference = self.directory / "reference"
+        reference.mkdir()
+        fixture(reference)
+        (self.directory / "run-equil.pbs").unlink()
+        fixture(self.directory, "production")
+        for name in ("gamd-1.rst", "gamd-restart.dat"):
+            shutil.copyfile(self.directory / name, reference / name)
+        self.assertEqual(self.run_gate("production", "--reference-equil", str(reference)).returncode, 0)
+        (reference / "md.in").write_text(mdin(parameters() | {"sigma0p": "1.7"}))
+        self.assertNotEqual(self.run_gate("production", "--reference-equil", str(reference)).returncode, 0)
+        (reference / "md.in").write_text(mdin(parameters() | {"ntf": "2"}))
+        self.assertNotEqual(self.run_gate("production", "--reference-equil", str(reference)).returncode, 0)
 
 
 if __name__ == "__main__":

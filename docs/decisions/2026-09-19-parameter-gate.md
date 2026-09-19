@@ -36,14 +36,27 @@ campaign-specific monitor or scheduler retry script.
 
 ## Validation and unresolved risk
 
-The synthetic regression suite and shell syntax check pass locally. No AMBER
-job was run for this patch. No simulation input, source result, queue job, or
-active automation was changed. The live checker is still the prior version
-until a coordinated, reviewed deployment occurs.
+After the initial draft, the user authorized deployment of the tools and
+monitoring rules. The follow-up release passed 29 regression tests locally and
+on the execution host, plus a shell syntax check and a read-only check of a real
+Production artifact against its exact reviewed Equil seed. Versioned shared
+tool entry points were activated and old entry points retained as non-executable
+audit backups. No simulation input, source result or queue job was changed.
+
+Codex and Claude monitoring prompts now route to one private operational round
+contract: complete outstanding-target reconciliation, changed-evidence analysis,
+fixed paired classification, ownership separation and guarded next actions.
+The mislabeled six-hour Codex schedule was restored to six hours; the existing
+Claude cadence was retained. A stale overlapping daily prompt was retired to a
+no-action instruction, without claiming its scheduler record was disabled.
+These are deployment observations, not proof that a later scheduled round has
+already executed successfully with the new rules.
 
 Actual source inputs can omit inherited parameters. That is not permission to
-assume defaults or rewrite scientific history. The source-evidence integration
-must be resolved before deployment, as explained in
+assume defaults or rewrite scientific history. An exact reviewed-Equil reference
+now supports replication and Production inheritance without retrospectively
+certifying its original cMD transition. A first-time transition with missing
+source evidence remains blocked, as explained in
 [the usage/deployment guide](../parameter-validation.md). Shared review-gate
 freshness/binding, exact seed inheritance, and scheduler idempotency remain
 separate action-layer checks; this patch is not an end-to-end submission

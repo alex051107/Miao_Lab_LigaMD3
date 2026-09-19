@@ -6,11 +6,13 @@ This repository contains the complete computational pipeline for preparing HSP90
 
 For new Equilibration or Production inputs, start with the
 [parameter validation guide](docs/parameter-validation.md). It explains the
-stage-specific tutorial/lab profile, explicit cMD source requirement, and
+stage-specific tutorial/lab profile, explicit cMD or reviewed-Equil source, and
 read-only checks. Historical examples below are not current submission rules.
 Passing a parameter check does not establish a bound seed, a valid sigma
-boundary, scientific correctness, or permission to submit. The new gate is a
-review candidate; live deployment and missing source settings remain separate.
+boundary, scientific correctness, or permission to submit. See the
+[monitoring contract](docs/heartbeat-monitoring.md) for incremental round handling
+and the paired classifier. Live deployment receipts and source approval remain
+separate from a successful test or PR.
 
 ## 📁 Repository Structure
 
